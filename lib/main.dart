@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 import "package:cloud_firestore/cloud_firestore.dart";
 import "package:firebase_core/firebase_core.dart";
 import "buscar.dart";
-
+import "Shop.dart";
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   Firebase.initializeApp();
@@ -61,8 +61,20 @@ class HomeStart extends State<Home> {
                 },
                 child: Text("Buscar"),
               ),
-            )
-          ]),
+            ),
+            Padding(
+                padding: EdgeInsets.only(left: 20,top: 20,right: 20,bottom: 0),
+                child: ElevatedButton(
+                  onPressed: (){
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (_) => Shop()));
+                  },
+                  child: Text("Listado de Tiendas"),
+                ),
+
+            ),
+          ],
+          ),
         ),
       ),
     );
