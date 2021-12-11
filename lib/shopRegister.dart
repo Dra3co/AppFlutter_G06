@@ -14,12 +14,13 @@ class ShopRegisterApp extends State<ShopRegister> {
   TextEditingController rutaImagen=TextEditingController();
   TextEditingController descrTienda=TextEditingController();
   TextEditingController website=TextEditingController();
-  //final firebase=FirebaseFirestore.instance;
+  final firebase=FirebaseFirestore.instance;
 
   registrar() async{
     try{
-      await Firebase.initializeApp();
-      return await FirebaseFirestore.instance
+      //await Firebase.initializeApp();
+      //return await FirebaseFirestore.instance
+        await firebase
           .collection("Tiendas")
           .doc()
           .set({
@@ -100,6 +101,11 @@ class ShopRegisterApp extends State<ShopRegister> {
               child: ElevatedButton(
                 onPressed: (){
                   registrar();
+                  nombreTienda.clear();
+                  rutaImagen.clear();
+                  descrTienda.clear();
+                  website.clear();
+
                 },
                 child: Text("Registrar"),
               ),
