@@ -5,6 +5,8 @@ class Shop extends StatefulWidget {
   ShopApp createState() => ShopApp();
 }
 
+
+
 class ShopApp extends State<Shop> {
   Widget build(BuildContext context) {
     Widget titleSection = Container(
@@ -42,6 +44,41 @@ class ShopApp extends State<Shop> {
         ],
       ),
     );
+
+    Column _buildButtonColumn(Color color, IconData icon, String label) {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(icon, color: color),
+          Container(
+            margin: const EdgeInsets.only(top: 8),
+            child: Text(
+              label,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+                color: color,
+              ),
+            ),
+          ),
+        ],
+      );
+    }
+
+    Color color = Theme.of(context).primaryColor;
+
+    Widget buttonSection = Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          _buildButtonColumn(color, Icons.call, "Llamar"),
+          _buildButtonColumn(color, Icons.add_location, "Ubicación"),
+          _buildButtonColumn(color, Icons.web, "Website"),
+        ],
+      ),
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Lista de Tiendas"),
@@ -55,7 +92,9 @@ class ShopApp extends State<Shop> {
             fit: BoxFit.cover,
           ),
           titleSection,
-          titleSection
+          buttonSection,
+          titleSection,
+          buttonSection,
         ],
       ),
     );

@@ -2,8 +2,10 @@ import "package:flutter/material.dart";
 import "package:cloud_firestore/cloud_firestore.dart";
 import "package:firebase_core/firebase_core.dart";
 import "buscar.dart";
-import "Shop.dart";
-import 'ShopRegister.dart';
+import "shop.dart";
+import 'shopRegister.dart';
+
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   Firebase.initializeApp();
@@ -51,7 +53,9 @@ class HomeStart extends State<Home> {
                     decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: "busqueda",
-                        hintText: "palabra clave de la busqueda"))),
+                        hintText: "palabra clave de la busqueda")
+                )
+            ),
             Padding(
               padding: EdgeInsets.only(left: 20, top: 20, right: 20, bottom: 0),
               child: ElevatedButton(
