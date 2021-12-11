@@ -12,6 +12,19 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    return MaterialApp(debugShowCheckedModeBanner: false, home: Home());
+  }
+}
+
+class Home extends StatefulWidget {
+  @override
+  HomeStart createState() => HomeStart();
+}
+
+@override
+class HomeStart extends State<Home> {
+  @override
+  Widget build(BuildContext context) {
     return MaterialApp(
       title: "Bienvenidos Grupo 06",
       home: Scaffold(
@@ -37,9 +50,7 @@ class MyApp extends StatelessWidget {
                     decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: "busqueda",
-                        hintText: "palabra clave de la busqueda")
-                )
-            ),
+                        hintText: "palabra clave de la busqueda"))),
             Padding(
               padding: EdgeInsets.only(left: 20, top: 20, right: 20, bottom: 0),
               child: ElevatedButton(
