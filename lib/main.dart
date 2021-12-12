@@ -1,10 +1,12 @@
 import "package:flutter/material.dart";
 import "package:cloud_firestore/cloud_firestore.dart";
 import "package:firebase_core/firebase_core.dart";
+import 'package:projecto_grupo6/gestionUsuarios.dart';
 import "buscar.dart";
 import "shop.dart";
 import 'shopRegister.dart';
-
+import 'gestionUsuarios.dart';
+import 'registroUser.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -86,6 +88,17 @@ class HomeStart extends State<Home> {
                       context, MaterialPageRoute(builder: (_) => ShopRegister()));
                 },
                 child: Text("Registro de la Tienda"),
+              ),
+
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 20,top: 20,right: 20,bottom: 0),
+              child: ElevatedButton(
+                onPressed: (){
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (_) => GestionUsuario()));
+                },
+                child: Text("Gestion de Usuario"),
               ),
 
             ),

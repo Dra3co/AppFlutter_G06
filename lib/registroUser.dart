@@ -3,42 +3,41 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 
-class ShopRegister extends StatefulWidget {
+class RegistroUsuario extends StatefulWidget {
   @override
-  ShopRegisterApp createState() => ShopRegisterApp();
+  RegistroUsuarioApp createState() => RegistroUsuarioApp();
 }
 
-class ShopRegisterApp extends State<ShopRegister> {
+class RegistroUsuarioApp extends State<RegistroUsuario> {
   @override
-  TextEditingController nombreTienda=TextEditingController();
-  TextEditingController rutaImagen=TextEditingController();
-  TextEditingController descrTienda=TextEditingController();
-  TextEditingController website=TextEditingController();
+  TextEditingController nombreUsuario=TextEditingController();
+  TextEditingController correo=TextEditingController();
+  TextEditingController telefono=TextEditingController();
+  TextEditingController contrasena=TextEditingController();
   final firebase=FirebaseFirestore.instance;
 
   registrar() async{
     try{
       //await Firebase.initializeApp();
       //return await FirebaseFirestore.instance
-        await firebase
-          .collection("Tiendas")
+      await firebase
+          .collection("Usuarios")
           .doc()
           .set({
-        "nombreTienda":nombreTienda.text,
-        "ruta":rutaImagen.text,
-        "descripción":descrTienda.text,
-        "website":website.text
+        "nombreUsuario":nombreUsuario.text,
+        "correo":correo.text,
+        "telefono":telefono.text,
+        "contraseña":contrasena.text
       });
     }
     catch(e){
       print(e);
     }
   }
-
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Registro Tiendas"),
+        title: Text("Registro Usuario"),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
@@ -47,10 +46,10 @@ class ShopRegisterApp extends State<ShopRegister> {
             Padding(
               padding: EdgeInsets.only(left: 15, top: 15, right: 15, bottom: 0),
               child: TextField(
-                controller: nombreTienda,
+                controller: nombreUsuario,
                 decoration: InputDecoration(
-                  labelText: "Nombre Tienda",
-                  hintText: "Digite Nombre de la Tienda",
+                  labelText: "Nombre de usuario",
+                  hintText: "Digite un Nombre de Usuario",
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
@@ -60,10 +59,10 @@ class ShopRegisterApp extends State<ShopRegister> {
             Padding(
               padding: EdgeInsets.only(left:15, top: 15,right: 15,bottom: 0),
               child: TextField(
-                controller: rutaImagen,
+                controller: correo,
                 decoration: InputDecoration(
-                  labelText: "Ruta de la Imagen",
-                  hintText:"Digite ruta de la imagen",
+                  labelText: "Correo Electronico",
+                  hintText:"Digite un Correo Electronico",
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
                   ) ,
@@ -73,10 +72,10 @@ class ShopRegisterApp extends State<ShopRegister> {
             Padding(
               padding: EdgeInsets.only(left:15, top: 15,right: 15,bottom: 0),
               child: TextField(
-                controller: descrTienda,
+                controller: telefono,
                 decoration: InputDecoration(
-                  labelText: "Descripción Tienda",
-                  hintText:"Digite descripción de la Tienda",
+                  labelText: "Numero Telefonico",
+                  hintText:"Digite Numero Telefonico",
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
                   ) ,
@@ -86,10 +85,11 @@ class ShopRegisterApp extends State<ShopRegister> {
             Padding(
               padding: EdgeInsets.only(left:15, top: 15,right: 15,bottom: 0),
               child: TextField(
-                controller: website,
+                obscureText: true,
+                controller: contrasena,
                 decoration: InputDecoration(
-                  labelText: "pagina web",
-                  hintText:"Digite pagina web de la Tienda",
+                  labelText: "Contraseña",
+                  hintText:"Digite una Contraseña",
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
                   ) ,
@@ -101,10 +101,10 @@ class ShopRegisterApp extends State<ShopRegister> {
               child: ElevatedButton(
                 onPressed: (){
                   registrar();
-                  nombreTienda.clear();
-                  rutaImagen.clear();
-                  descrTienda.clear();
-                  website.clear();
+                  nombreUsuario.clear();
+                  correo.clear();
+                  telefono.clear();
+                  contrasena.clear();
 
                 },
                 child: Text("Registrar"),
