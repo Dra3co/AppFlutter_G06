@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:projecto_grupo6/Usuarios/bajaUsuario.dart';
 import 'package:projecto_grupo6/Usuarios/cambioPass.dart';
 import 'package:projecto_grupo6/Usuarios/login.dart';
+import 'package:projecto_grupo6/Usuarios/modificarUsuario.dart';
 import 'registroUser.dart';
 import 'login.dart';
 import 'cambioPass.dart';
 import 'bajaUsuario.dart';
+import 'modificarUsuario.dart';
 
 class GestionUsuario extends StatefulWidget {
   @override
@@ -49,7 +51,10 @@ class GestionUsuarioApp extends State<GestionUsuario> {
               padding: EdgeInsets.only(top: 20),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(minimumSize: Size(500, 50)),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => ModificarUsuario()));
+                },
                 child: Text("Modificar Usuario"),
               ),
             ),
@@ -64,22 +69,13 @@ class GestionUsuarioApp extends State<GestionUsuario> {
                 child: Text("Cambio de Contraseña"),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(top: 20),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(minimumSize: Size(500, 50)),
-                onPressed: () {},
-                child: Text("Modificar Usuario"),
-              ),
-            ),
+
             Padding(
               padding: EdgeInsets.only(top: 20),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(minimumSize: Size(500, 50)),
                 onPressed: () {
-                 mensaje("Inactivar Usuario", "¿Desea inactivar el Usuario?");
-                  // Navigator.push(context,
-                     // MaterialPageRoute(builder: (_) => BajaUsuario()));
+                  mensaje("Inactivar Usuario", "¿Desea inactivar el Usuario?");
                 },
                 child: Text("Dar de Baja"),
               ),
@@ -89,17 +85,18 @@ class GestionUsuarioApp extends State<GestionUsuario> {
       ),
     );
   }
+
   void mensaje(String titulo, String mess) {
     showDialog(
         context: context,
         builder: (buildcontext) {
           return AlertDialog(
-
             title: Text(titulo),
             content: Text(mess),
             actions: <Widget>[
               Padding(
-                padding: EdgeInsets.only(left: 30, top: 10, right: 30, bottom: 0),
+                padding:
+                    EdgeInsets.only(left: 30, top: 10, right: 30, bottom: 0),
                 child: TextField(
                   // controller: correo,
                   decoration: InputDecoration(
@@ -111,7 +108,8 @@ class GestionUsuarioApp extends State<GestionUsuario> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(left: 30, top: 10, right: 30, bottom: 0),
+                padding:
+                    EdgeInsets.only(left: 30, top: 10, right: 30, bottom: 0),
                 child: TextField(
                   // controller: correo,
                   decoration: InputDecoration(
@@ -122,20 +120,17 @@ class GestionUsuarioApp extends State<GestionUsuario> {
                   ),
                 ),
               ),
-
               RaisedButton(
-                onPressed: () {
-
-                },
+                onPressed: () {},
                 child:
-                Text("Aceptar", style: TextStyle(color: Colors.blueGrey)),
+                    Text("Aceptar", style: TextStyle(color: Colors.blueGrey)),
               ),
               RaisedButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
                 child:
-                Text("Cancelar", style: TextStyle(color: Colors.blueGrey)),
+                    Text("Cancelar", style: TextStyle(color: Colors.blueGrey)),
               ),
             ],
           );

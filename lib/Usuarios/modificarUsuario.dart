@@ -1,42 +1,66 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 
-class RegistroUsuario extends StatefulWidget {
+class ModificarUsuario extends StatefulWidget {
   @override
-  RegistroUsuarioApp createState() => RegistroUsuarioApp();
+  ModificarUsuarioApp createState() => ModificarUsuarioApp();
 }
 
-class RegistroUsuarioApp extends State<RegistroUsuario> {
-  @override
-  TextEditingController nombreUsuario = TextEditingController();
+class ModificarUsuarioApp extends State<ModificarUsuario> {
   TextEditingController correo = TextEditingController();
+  TextEditingController nombre = TextEditingController();
   TextEditingController telefono = TextEditingController();
-  TextEditingController contrasena = TextEditingController();
   TextEditingController direccion = TextEditingController();
   final firebase = FirebaseFirestore.instance;
+  String email = "";
+  String idDoc = "";
+  String pass = "";
+  bool state = true;
 
-  registrar() async {
+  validarDatos() async {
     try {
-      //await Firebase.initializeApp();
-      //return await FirebaseFirestore.instance
-      await firebase.collection("Usuarios").doc().set({
-        "nombreUsuario": nombreUsuario.text,
-        "correo": correo.text,
+      CollectionReference ref =
+          FirebaseFirestore.instance.collection("Usuarios");
+      QuerySnapshot usuario = await ref.get();
+      if (usuario.docs.length != 0) {
+        for (var cursor in usuario.docs) {
+          if (cursor.get("correo") == correo.text) {
+            nombre.text = cursor.get("nombreUsuario");
+            telefono.text = cursor.get("telefono");
+            direccion.text = cursor.get("dirección");
+            this.idDoc = cursor.id;
+            this.email = cursor.get("correo");
+            this.pass = cursor.get("contraseña");
+          }
+        }
+      } else {
+        print("no hay elementos en la colección");
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  modificarDatos() async {
+    try {
+      await firebase.collection("Usuarios").doc(idDoc).set({
+        "nombreUsuario": nombre.text,
+        "correo": this.email,
         "telefono": telefono.text,
         "dirección": direccion.text,
-        "contraseña": contrasena.text,
-        "estado": true
+        "contraseña": pass,
+        "estado": state
       });
     } catch (e) {
       print(e);
     }
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Registro Usuario"),
+        title: Text("Actualizar Usuario"),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
@@ -45,10 +69,10 @@ class RegistroUsuarioApp extends State<RegistroUsuario> {
             Padding(
               padding: EdgeInsets.only(left: 15, top: 15, right: 15, bottom: 0),
               child: TextField(
-                controller: nombreUsuario,
+                controller: correo,
                 decoration: InputDecoration(
-                  labelText: "Nombre de usuario",
-                  hintText: "Digite un Nombre de Usuario",
+                  labelText: "Correo Electronico",
+                  hintText: "Digite un Correo Electronico",
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
@@ -57,11 +81,20 @@ class RegistroUsuarioApp extends State<RegistroUsuario> {
             ),
             Padding(
               padding: EdgeInsets.only(left: 15, top: 15, right: 15, bottom: 0),
+              child: ElevatedButton(
+                onPressed: () {
+                  validarDatos();
+                },
+                child: Text("Buscar"),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 15, top: 15, right: 15, bottom: 0),
               child: TextField(
-                controller: correo,
+                controller: nombre,
                 decoration: InputDecoration(
-                  labelText: "Correo Electronico",
-                  hintText: "Digite un Correo Electronico",
+                  labelText: "Nombre de usuario",
+                  hintText: "Digite un Nombre de Usuario",
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
@@ -80,7 +113,8 @@ class RegistroUsuarioApp extends State<RegistroUsuario> {
                   ),
                 ),
               ),
-            ),Padding(
+            ),
+            Padding(
               padding: EdgeInsets.only(left: 15, top: 15, right: 15, bottom: 0),
               child: TextField(
                 controller: direccion,
@@ -95,30 +129,15 @@ class RegistroUsuarioApp extends State<RegistroUsuario> {
             ),
             Padding(
               padding: EdgeInsets.only(left: 15, top: 15, right: 15, bottom: 0),
-              child: TextField(
-                obscureText: true,
-                controller: contrasena,
-                decoration: InputDecoration(
-                  labelText: "Contraseña",
-                  hintText: "Digite una Contraseña",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 15, top: 15, right: 15, bottom: 0),
               child: ElevatedButton(
                 onPressed: () {
-                  registrar();
-                  nombreUsuario.clear();
-                  correo.clear();
-                  telefono.clear();
+                  modificarDatos();
+                  nombre.clear();
                   direccion.clear();
-                  contrasena.clear();
+                  telefono.clear();
+                  correo.clear();
                 },
-                child: Text("Registrar"),
+                child: Text("Modificar"),
               ),
             ),
           ],
