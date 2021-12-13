@@ -39,6 +39,19 @@ class HomeStart extends State<Home> {
       home: Scaffold(
         appBar: AppBar(
           title: Text("Home app grupo 06"),
+          actions: [
+            FloatingActionButton(
+              onPressed: () {
+               // Navigator.push(
+                 //   context, MaterialPageRoute(builder: (_) => ItemRegister(tiendaId)));
+              },
+
+              tooltip: "Carrito",
+              child:const Icon(Icons.shopping_cart),
+             // child: Text("Añadir"),
+              backgroundColor: Colors.teal,
+            ),
+          ],
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -62,7 +75,8 @@ class HomeStart extends State<Home> {
                       decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: "busqueda",
-                          hintText: "palabra clave de la busqueda"))),
+                          hintText: "palabra clave de la busqueda"))
+              ),
               Padding(
                 padding:
                     EdgeInsets.only(left: 20, top: 20, right: 20, bottom: 0),

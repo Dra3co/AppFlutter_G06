@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:projecto_grupo6/Productos/itemRegister.dart';
 
-
 class ShopOne extends StatefulWidget {
   final String DOC_ID;
   ShopOne(this.DOC_ID);
@@ -20,7 +19,7 @@ class ShopOneApp extends State<ShopOne> {
   String descLarga = "default long";
   String visitas = "41";
   String logo = "logo.png";
-  String tiendaId="";
+  String tiendaId = "";
 
   validarDatos() async {
     try {
@@ -33,7 +32,7 @@ class ShopOneApp extends State<ShopOne> {
             //String titulo
             this.nombre = cursor.get("nombreTienda");
             this.descCorta = cursor.get("descripción");
-            this.tiendaId=cursor.id;
+            this.tiendaId = cursor.id;
             //String descLarga = "default long";
             //String visitas = "defeult num";
             logo = cursor.get("ruta");
@@ -132,8 +131,8 @@ class ShopOneApp extends State<ShopOne> {
           actions: [
             FloatingActionButton(
               onPressed: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (_) => ItemRegister(tiendaId)));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => ItemRegister(tiendaId)));
               },
               tooltip: "Agregar Producto",
               child: Text("Añadir"),
@@ -161,7 +160,7 @@ class ShopOneApp extends State<ShopOne> {
             Expanded(
               child: StreamBuilder(
                 stream: FirebaseFirestore.instance
-                    .collection("Tiendas")
+                    .collection("Productos")
                     .snapshots(),
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -170,55 +169,76 @@ class ShopOneApp extends State<ShopOne> {
                   return ListView.builder(
                     itemCount: snapshot.data!.docs.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return new Card(
-                        child: new Column(
-                          children: <Widget>[
-                            Container(
-                              padding: const EdgeInsets.all(15),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                            padding: const EdgeInsets.only(
-                                                bottom: 10),
-                                            child: Text(snapshot
-                                                .data!.docs[index]
-                                                .get("nombreTienda"))),
-                                        Text(
-                                          snapshot.data!.docs[index]
-                                              .get("descripción"),
-                                          style: TextStyle(
-                                            color: Colors.green[500],
+                      if (snapshot.data!.docs[index].get("TiendaID") ==
+                          this.tiendaId) {
+                        return new Card(
+                          child: new Column(
+                            children: <Widget>[
+                              Container(
+                                padding: const EdgeInsets.all(15),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                              padding: const EdgeInsets.only(
+                                                  bottom: 10),
+                                              child: Text(snapshot
+                                                  .data!.docs[index]
+                                                  .get("Nombre"))),
+                                          Text(
+                                            snapshot.data!.docs[index]
+                                                .get("Descripcion"),
+                                            style: TextStyle(
+                                              color: Colors.green[500],
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                  Container(
-                                    width: 80,
-                                    height: 80,
-                                    child: Image.asset('image/' +
-                                        snapshot.data!.docs[index].get("ruta")),
-                                  ),
-                                  ElevatedButton(
+                                    Container(
+                                      width: 80,
+                                      height: 80,
+                                      child: Image.asset(
+                                          'image/' /*+
+                                        snapshot.data!.docs[index].get("ruta")*/
+                                          ),
+                                    ),
+                                    FloatingActionButton(
                                       onPressed: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (_) => ShopOne(snapshot
-                                                    .data!.docs[index].id)));
+                                        // Navigator.push(
+                                        //   context, MaterialPageRoute(builder: (_) => ItemRegister(tiendaId)));
                                       },
-                                      child: Text("entrar"))
-                                ],
+
+                                      tooltip: "Añadir al Carrito",
+                                      child:const Icon(Icons.add_shopping_cart),
+                                      // child: Text("Añadir"),
+                                      backgroundColor: Colors.teal,
+                                    ),FloatingActionButton(
+                                      onPressed: () {
+                                        // Navigator.push(
+                                        //   context, MaterialPageRoute(builder: (_) => ItemRegister(tiendaId)));
+                                      },
+
+                                      child: Text("Ver"),
+                                      //child:const Icon(Icons.add_shopping_cart),
+                                      // child: Text("Añadir"),
+                                      backgroundColor: Colors.indigoAccent,
+                                      tooltip: "Ver Producto",
+                                    ),
+
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                      );
+                            ],
+                          ),
+                        );
+                      } else {
+                        return new Card();
+                      }
                     },
                   );
                 },
