@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:projecto_grupo6/Tiendas/shopOne.dart';
+
 
 class Buscar extends StatefulWidget {
-  final String searchWord;
-  Buscar(this.searchWord);
+  final String SEARCH_WORD;
+  Buscar(this.SEARCH_WORD);
 
   @override
   BuscarApp createState() => BuscarApp();
@@ -28,8 +30,8 @@ class BuscarApp extends State<Buscar> {
               return ListView.builder(
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (BuildContext context, int index) {
-                  if (snapshot.data!.docs[index].get("nombreTienda").toString().contains(widget.searchWord)
-                      ) {
+                  if (snapshot.data!.docs[index].get("nombreTienda").toString().toUpperCase().contains(widget.SEARCH_WORD.toUpperCase()))
+                       {
                     //print(snapshot.data!.docs[index].get("nombreTienda"));
 
                     return new Card(
@@ -66,7 +68,10 @@ class BuscarApp extends State<Buscar> {
                                       snapshot.data!.docs[index].get("ruta")),
                                 ),
                                 ElevatedButton(
-                                    onPressed: () {}, child: Text("entrar"))
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context, MaterialPageRoute(builder: (_) => ShopOne(snapshot.data!.docs[index].id)));
+                                    }, child: Text("entrar"))
                               ],
                             ),
                           ),

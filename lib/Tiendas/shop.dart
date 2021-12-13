@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:projecto_grupo6/Tiendas/shopOne.dart';
 
 class Shop extends StatefulWidget {
   @override
@@ -10,39 +11,7 @@ class Shop extends StatefulWidget {
 
 class ShopApp extends State<Shop> {
   Widget build(BuildContext context) {
-    Column _buildButtonColumn(Color color, IconData icon, String label) {
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(icon, color: color),
-          Container(
-            margin: const EdgeInsets.only(top: 8),
-            child: Text(
-              label,
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
-                color: color,
-              ),
-            ),
-          ),
-        ],
-      );
-    }
 
-    Color color = Theme.of(context).primaryColor;
-
-    Widget buttonSection = Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          _buildButtonColumn(color, Icons.call, "Llamar"),
-          _buildButtonColumn(color, Icons.add_location, "Ubicación"),
-          _buildButtonColumn(color, Icons.web, "Website"),
-        ],
-      ),
-    );
 
     return Scaffold(
       appBar: AppBar(
@@ -93,7 +62,10 @@ class ShopApp extends State<Shop> {
                                     snapshot.data!.docs[index].get("ruta")),
                               ),
                               ElevatedButton(
-                                  onPressed: () {}, child: Text("entrar"))
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context, MaterialPageRoute(builder: (_) => ShopOne(snapshot.data!.docs[index].id)));
+                                  }, child: Text("entrar"))
                             ],
                           ),
                         ),
