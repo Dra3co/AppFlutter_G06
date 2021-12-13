@@ -14,8 +14,9 @@ class Buscar extends StatefulWidget {
 class BuscarApp extends State<Buscar> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(backgroundColor: Colors.white54,
       appBar: AppBar(
+        backgroundColor: Colors.brown,
         title: Text("Registro de Buqueda"),
       ),
       body: Container(

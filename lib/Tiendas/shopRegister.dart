@@ -32,7 +32,9 @@ class ShopRegisterApp extends State<ShopRegister> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white30,
       appBar: AppBar(
+        backgroundColor: Colors.brown,
         title: Text("Registro Tiendas"),
       ),
       body: SingleChildScrollView(

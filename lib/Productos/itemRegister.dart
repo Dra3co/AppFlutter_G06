@@ -27,7 +27,7 @@ class ItemRegisterApp extends State<ItemRegister> {
           .doc()
           .set({
         "Nombre": nombre.text,
-        "Precio": precio.text,
+        "Precio": double.parse(precio.text),
         "Descripcion": descripcion.text,
         "TiendaID":widget.ID_TIENDA,
 

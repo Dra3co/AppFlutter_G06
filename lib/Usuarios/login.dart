@@ -46,7 +46,9 @@ class LoginApp extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white54,
       appBar: AppBar(
+        backgroundColor: Colors.brown,
         title: Text("Ingreso de clientes"),
       ),
       body: SingleChildScrollView(

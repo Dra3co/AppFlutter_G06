@@ -16,8 +16,8 @@ class ShopApp extends State<Shop> {
   Widget build(BuildContext context) {
 
 
-    return Scaffold(
-      appBar: AppBar(
+    return Scaffold(backgroundColor: Colors.white54,
+      appBar: AppBar(backgroundColor: Colors.brown,
         title: Text("Lista de Tiendas"),
       ),
       body: Container(

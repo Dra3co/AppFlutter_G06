@@ -19,7 +19,9 @@ class GestionUsuarioApp extends State<GestionUsuario> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white54,
       appBar: AppBar(
+        backgroundColor: Colors.brown,
         title: Text("Gestion Usuario"),
       ),
       body: SingleChildScrollView(

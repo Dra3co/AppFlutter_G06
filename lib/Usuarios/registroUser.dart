@@ -34,8 +34,9 @@ class RegistroUsuarioApp extends State<RegistroUsuario> {
   }
 
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(backgroundColor: Colors.white54,
       appBar: AppBar(
+        backgroundColor: Colors.brown,
         title: Text("Registro Usuario"),
       ),
       body: SingleChildScrollView(

@@ -61,7 +61,9 @@ class CambiopassApp extends State<CambioPass> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white54,
       appBar: AppBar(
+        backgroundColor: Colors.brown,
         title: Text("Cambio Contraseña"),
       ),
       body: SingleChildScrollView(
