@@ -229,7 +229,6 @@ class ShopOneApp extends State<ShopOne> {
                                       backgroundColor: Colors.indigoAccent,
                                       tooltip: "Ver Producto",
                                     ),
-
                                   ],
                                 ),
                               ),
