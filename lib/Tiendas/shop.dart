@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:projecto_grupo6/Tiendas/shopOne.dart';
+import 'package:projecto_grupo6/Tiendas/tienda.dart';
+import 'shopOne.dart';
 
 class Shop extends StatefulWidget {
   @override
@@ -10,6 +12,7 @@ class Shop extends StatefulWidget {
 }
 
 class ShopApp extends State<Shop> {
+  tienda tiendaObjeto = new tienda();
   Widget build(BuildContext context) {
 
 
@@ -63,8 +66,14 @@ class ShopApp extends State<Shop> {
                               ),
                               ElevatedButton(
                                   onPressed: () {
+                                    tiendaObjeto.idTienda=snapshot.data!.docs[index].id;
+                                    tiendaObjeto.nombre=snapshot.data!.docs[index].get("nombreTienda");
+                                    tiendaObjeto.descripcion=snapshot.data!.docs[index].get("descripción");
+                                    tiendaObjeto.imagen=snapshot.data!.docs[index].get("ruta");
+                                    tiendaObjeto.website=snapshot.data!.docs[index].get("website");
                                     Navigator.push(
-                                        context, MaterialPageRoute(builder: (_) => ShopOne(snapshot.data!.docs[index].id)));
+                                        context, MaterialPageRoute(builder: (_) => ShopOne(tiendaObjeto)));
+
                                   }, child: Text("entrar"))
                             ],
                           ),

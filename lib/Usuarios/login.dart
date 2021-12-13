@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:projecto_grupo6/Usuarios/token.dart';
 import '../buscar.dart';
 
 class Login extends StatefulWidget {
@@ -18,18 +19,16 @@ class LoginApp extends State<Login> {
           FirebaseFirestore.instance.collection("Usuarios");
       QuerySnapshot usuario = await ref.get();
       if (usuario.docs.length != 0) {
-        print(usuario.docs.length);
         int flag = 0;
         for (var cursor in usuario.docs) {
-          print(cursor.get("correo"));
           if (cursor.get("correo") == correo.text) {
-            print(cursor.get("contraseña"));
             if (cursor.get("contraseña") == contrasena.text) {
-              mensaje("Correcto", "usuario correcto");
-              print(cursor.get("nombreUsuario"));
+              //mensaje("Correcto", "usuario correcto");
+
               flag = 1;
-              //Navigator.push(
-                  //context, MaterialPageRoute(builder: (_) => Buscar()));
+              token tk = new token();
+              tk.guardarToken(cursor.id.toString());
+              Navigator.of(context).pop();
             }
           }
         }
@@ -121,7 +120,7 @@ class LoginApp extends State<Login> {
                   Navigator.of(context).pop();
                 },
                 child:
-                    Text("Aceptar", style: TextStyle(color: Colors.blueGrey)),
+                Text("Aceptar", style: TextStyle(color: Colors.blueGrey)),
               )
             ],
           );
